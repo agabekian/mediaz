@@ -1,0 +1,157 @@
+/* *{
+    outline:1px solid yellow;
+} */
+.catalog {
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    background-color: rgb(206, 204, 202);
+    min-height: 200px;
+}
+
+#search-box{
+    display:flex;
+    justify-content: space-between;
+    width: 300px;
+}
+
+.ext{
+    background-color: rgb(243, 224, 220);
+    color:white;
+
+}
+
+.content {
+    min-width: 970px;
+    height:1200px;
+    /* padding: 20px; */
+    display: flex;
+}
+.outline {
+    display: flex;
+    justify-content: space-between;
+    border: 2px solid darkcyan;
+    background-color: rgb(73, 153, 167);
+    color:whitesmoke;
+    padding: 10px 20px 10px 10px;
+    border-radius: 5px;
+    align-content: center;
+}
+h3{
+    align-self: center;
+}
+table th,
+td {
+    border: 1px solid purple;
+    text-align: center;
+    padding:5px;
+}
+
+.partition {
+    border: 1px solid rgb(71, 8, 8);
+    min-width: 10%;
+    max-width:20%;
+    text-align: center;
+    padding: .5em;
+    margin: 0px;
+    background: -webkit-linear-gradient(bottom, #2f3738, #444652);
+    display: flex;
+    flex-direction: column;
+    padding:20px;
+    color:white;
+
+}
+.chooser{
+    background-color: rgb(22, 32, 22);
+    margin:30px;
+}
+.stack{
+    padding:2px;
+    display: flex;
+    flex-direction: column;
+    margin:auto;
+}
+input, select{
+    border-radius: 8px;
+}
+.form-line {
+    display: flex;
+    justify-content: space-between;
+    margin:10px;
+}
+.form-line input{
+    display: flex;
+    justify-content: space-between;
+}
+h3{
+    text-shadow: 2px 2px 5px rgb(11, 21, 51);
+}
+span{
+    background-color: rgb(78, 66, 51);
+    width:20px;
+    border-radius: 5px;
+    padding: 2px;
+    opacity: .7;
+}
+button{
+    min-width:40px;
+    margin:10px;
+    align-self: center;
+}
+
+.normal_butt{
+    min-width:60px;
+    max-width:80px;
+    margin:10px 20px 10px 20px;
+    display:flex;
+    justify-content: space-between;
+}
+
+.player{
+    padding: 10px;
+    align-self: center;
+}
+
+.flashy{
+    color:rgb(240, 240, 233);
+}
+
+.flashy:hover{
+    color:white;
+    text-shadow: 2px 2px 5px rgb(203, 209, 114);
+
+}
+.reg{
+    display: flex;
+}
+.red{
+    color:rgb(240, 226, 226);
+    padding:15px;
+    display: inline;
+    list-style-type: none;
+    text-align: center;
+}
+.bold{
+    color: rgb(206, 204, 202);
+
+    padding:5px;
+    border:1px solid rgb(187, 150, 187);
+}
+.message-box{
+min-height: 80px;
+text-align: center;
+border:1px solid rgb(143, 119, 143);
+margin-bottom:10px;
+}
+.bold a{
+    color: rgb(206, 204, 202);
+}
+select { #cool
+    text-align: center;
+    text-align-last: center;
+    /* webkit */
+  }
+  /* option {
+    text-align: left;
+    /* reset to left */
+  } */

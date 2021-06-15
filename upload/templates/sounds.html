@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>mUploader</title>
+    {% load static %}
+    <script src="{% static 'js/list.js' %}"></script>
+    <link rel="stylesheet" href="{%static 'css/style.css' %}">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+</head>
+
+<body>
+    {% block content%}
+
+
+
+    <div class="content">
+        <div class="partition">
+            <div class="header">
+                <p><em> {{logged_user.first_name}} * |</em> <a href="logout">Logout</a></p>
+            </div>
+            <h3 class='outline'>mUploader</h3>
+            <br>
+            <form enctype="multipart/form-data" method="POST" action="/upload">
+                {% csrf_token %}
+                <input type="hidden" name="created_by">
+                <div class="stack">
+                    <label for='ftitle'>Title</label>
+                    <input type="text" name='ftitle' id="ftitle"><br>
+                    <label for="fcat">Category</label>
+                    <select name="fcat" id="fcat">
+                    <!-- <option value='' selected disabled>&nbsp;select</option> -->
+
+                        {% for cat in categories%}
+                        <option value="{{cat.id}}">
+                            {{cat.title}}
+                        </option>
+                        {% endfor %}
+                    </select>
+                    <input class="chooser" type="file" name='fsoundfile'><br>
+                </div>
+                <input class='btn btn-secondary' type="submit" value="upload" />
+            </form>
+            <br>
+            {% comment %} <audio controls class="player">
+                <source src='{{ MEDIA_URL }}{{ soundfile }}' type='audio/ogg'>
+                <source src='{{ MEDIA_URL }}{{ soundfile }}' type='audio/mpeg'>
+                Your browser cant.
+            </audio> {% endcomment %}
+            {% if messages %}
+                <ul class="messages">
+                    {% for message in messages %}
+                        <li class="red"><em> - {{ message }}</em></li>
+                    {% endfor %}
+                </ul>
+            {% endif %}
+
+            <br><br>
+        </div>
+        <div class="catalog" id="sortable_table_wrapper">
+            <div class="outline">
+                <input class="search" placeholder="Search by keyword">
+                <h6>u p l o a d e d</h6>
+            </div>
+            <table>
+                <caption>Bootstrap put me here,<br> multi uploads,<br> play without leaving</caption>
+                <thead>
+                    <tr>
+                        <th class="sort" data-sort="title">Title</th>
+                        <th class="sort" data-sort="cat">Cat</a></th>
+                        <th class="sort" data-sort="file name">File Name</th>
+                        <th class="sort" data-sort="type">Type</th>
+                        <th class="sort" data-sort="uploader">Uploader</a></th>
+                        <th>Actions</th>
+                        <th class="sort">ID</th>
+                    </tr>
+                </thead>
+                <tbody class="list">
+                    {% for sound in catalog %}
+                    <tr>
+                        <!-- hrefs inside td's were breaking table sorting!  -->
+                        <td class="title">{{sound.title}}</td>
+                        <td class="cat">{{sound.category}}</td>
+                        <td class="file name">{{sound.file_name.lower}}</td>
+                        <td class="type">{{sound.extension.lower}}</td>
+                        <td class="uploader">{{sound.created_by.first_name}}</td>
+                        <!-- actions -->
+                        <td>
+                            <a href="{{ MEDIA_URL }}{{sound.soundfile }}">▶ &nbsp;</a>
+                            <a href="/sounds/{{sound.id}}/details">Details |</a>
+                            <a href="sounds/{{sound.id}}/destroy">Delete | </a>
+                            <a href="sounds/{{sound.id}}/entry_edit">Edit</a>
+                        </td>
+                        <td>{{sound.id}}</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+            <script>
+                var options = { valueNames: ['title', 'cat', 'file name', 'type', 'uploader'] };
+                var sortable_table_wrapper = new List('sortable_table_wrapper', options);
+                sortable_table_wrapper.sort("title", { order: "title" });
+            </script>
+        </div>
+    </div>
+    {% endblock %}
+</body>
+
+</html>

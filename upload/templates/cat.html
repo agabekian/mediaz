@@ -1,0 +1,44 @@
+{% extends 'sounds.html'%}
+{% block content%}
+{% if messages %}
+<ul class="messages">
+    {% for message in messages %}
+    <li class="red"><em> - {{ message }}</em></li>
+    {% endfor %}
+</ul>
+{% endif %}
+
+<div class="stack">
+    <h6>Add category:</h6>
+    <form action="/add-cat" method='POST'>
+        {% csrf_token %}
+        <div class="form-line">
+            <label for="ftitle">name&nbsp;&nbsp;</label><br>
+            <input type="text" name="ftitle" id="ftitle"><br>
+            <label for="fslug">&nbsp;&nbsp;slug&nbsp;&nbsp;</label><br>
+            <input type="text" name="fslug" id="fslug">
+        </div>
+        <hr>
+        <button class='btn btn-info' type="submit">+&nbsp;<span> add </span>&nbsp;&nbsp;</button>
+    </form>
+
+    <h6>Delete category:</h6>
+    <p>(cascade-removes all related sounds!)</p>
+    <form action="cat/destroy" method="POST">
+        {% csrf_token %}
+
+    <label for="fcat" value="select cat"></label>
+    <select name="fcat" id="fcat">
+        <option value='' hidden selected disabled>&nbsp;delete category</option>
+        {% for cat in categories%}
+        <option value="{{cat.id}}" >
+            <p>{{cat.title}} {{cat.id}}</p>
+        </option>
+        {% endfor %}
+    </select><br>
+    <hr>
+        <button class="btn btn-danger" type="submit">-&nbsp;<span class="text">  del </span>&nbsp;&nbsp;</button>
+    </form>
+
+</div>
+{% endblock %}

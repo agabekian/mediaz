@@ -1,0 +1,30 @@
+{% extends 'sounds.html'%}
+{% block content %}
+{% load static %}
+
+<div class="partition">
+    <p>Selected ID: {{sound.id}}</p>
+    <h2>{{sound.title}}</h2>
+    ♡ :
+    {% for x in sound.fans.all%}
+    {{x.first_name}},
+    {% endfor %}
+    <p><em>Category :</em> {{sound.category}}</p>
+    <p><em>File Type :</em> {{sound.extension.lower}}</p>
+    <p><em>Uploader :</em> {{sound.created_by.first_name}}</p>
+    <p><em>Added on :</em> {{sound.created_at}}</p>
+    <p><em>Path : </em>{{ MEDIA_URL }}{{sound}}</p>
+    <audio controls class='player'>
+        <source src='{{ MEDIA_URL }}{{ sound }}' type='audio/ogg'>
+        <source src='{{ MEDIA_URL }}{{ sound }}' type='audio/mpeg'>
+        Your browser does not support the audio element.
+    </audio>
+    <a class="flashy" href="/sounds/{{sound.id}}/fav">♡&nbsp;&nbsp;+ FAV -&nbsp;&nbsp;♡</a>
+    <div class="form-line">
+        <a class="btn btn-info normal_butt" href="/home">Back</a>
+        <a class="btn btn-danger normal_butt" href="/sounds/{{sound.id}}/entry_edit">Edit</a>
+
+    </div>
+</div>
+
+{% endblock%}
