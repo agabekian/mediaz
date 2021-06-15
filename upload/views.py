@@ -66,7 +66,7 @@ def details(request, id):
 
 def delete_entry(request,id):
     entry = Sound.objects.get(id=id)
-    print("***********************************deleting file at media/sounds/"+str(entry))
+    print("***************************deleting file at media/sounds/"+str(entry))
     entry.delete()
     os.remove("media/sounds/"+str(entry))
     return redirect('/home')

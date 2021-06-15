@@ -1,5 +1,6 @@
 from django.db import models
 import os
+from django.core.files.storage import FileSystemStorage
 from login_app.models import User
 
 
@@ -28,17 +29,27 @@ class Category(models.Model):
     def __str__(self):
         return self.title
 
+"""custom storage class to override django's default name "cleaning" with underscores"""       
+class CustomStorage(FileSystemStorage):
+        def get_valid_name(self, name):
+            # return get_valid_filename(name)
+            return name
+
 class Sound(models.Model):
     title = models.CharField(max_length=255)
     category = models.ForeignKey(Category, on_delete=models.CASCADE)
     created_at = models.DateField(auto_now_add=True)
     created_by = models.ForeignKey(User, related_name="sounds_created",on_delete=models.CASCADE,)
     def get_upload_path(instance, filename): #creates a dynamic file path
-        return os.path.join(
-        "sound_%s" % instance.category, filename)
-        
+        # return os.path.join(
+        # "sound_%s" % instance.created_by.first_name, filename)
+        # return '_{0}/{1}'.format(instance.created_by.first_name, filename) #another version
+        extension = filename.split('.')[-1]
+        new_filename = filename
+        return '/'.join(["_"+ instance.created_by.first_name, new_filename])
 
-    soundfile = models.FileField(upload_to=get_upload_path,
+    soundfile = models.FileField(upload_to  = get_upload_path, #should change soundfile to upload (more general)
+    storage = CustomStorage(),#added so Django doesn do its _name (the get_valid_filename) thing new custom class Storage overrides this
     null=True, blank=True, verbose_name = "")
     fans = models.ManyToManyField(User, related_name='faves')
 
