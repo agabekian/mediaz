@@ -11,8 +11,6 @@ from django.contrib import messages
 from django.core.files.storage import FileSystemStorage
 import os
 
-#DONT MIX PATH NAMES WITH HTML NAMES! NAME ACCORDINGLY PATH IS PATH TEMPLATE IS THE OTHER
-
 def upload(request):
     logged_user = User.objects.get(id=request.session['logged_user'])
     try:
@@ -68,7 +66,7 @@ def details(request, id):
 
 def delete_entry(request,id):
     entry = Sound.objects.get(id=id)
-    print("***********************************",entry)
+    print("***********************************deleting file at media/sounds/"+str(entry))
     entry.delete()
     os.remove("media/sounds/"+str(entry))
     return redirect('/home')
@@ -79,11 +77,11 @@ def entry_edit(request,id):
     cat = Category.objects.get(sound=the_sound)
     print("cat is", cat.slug)
     categories = Category.objects.all()
-    soundfile = the_sound
+    # soundfile = the_sound
     print(the_sound.__dict__)
     context = {
         'sound':the_sound,
-        'soundfile': soundfile,
+        # 'soundfile': soundfile,
         'categories': categories,
     }
     return render(request,'entry-edit.html',context)

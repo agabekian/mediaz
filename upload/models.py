@@ -33,7 +33,7 @@ class Sound(models.Model):
     category = models.ForeignKey(Category, on_delete=models.CASCADE)
     created_at = models.DateField(auto_now_add=True)
     created_by = models.ForeignKey(User, related_name="sounds_created",on_delete=models.CASCADE,)
-    def get_upload_path(instance, filename):#creates a dynamic file path
+    def get_upload_path(instance, filename): #creates a dynamic file path
         return os.path.join(
         "sound_%s" % instance.category, filename)
         
