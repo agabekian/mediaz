@@ -1,7 +1,0 @@
-2021 version
-
-added title from file name, you can still re-name the file as upload
-
-exceptions implemented
-
-UI tweaks
